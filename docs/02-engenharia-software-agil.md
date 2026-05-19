@@ -41,18 +41,8 @@ A Clínica Saúde Popular enfrenta os seguintes desafios:
 
 O backlog foi organizado em formato de User Stories, priorizadas por valor para a clínica:
 
-| # | User Story | Prioridade | Sprint |
-|---|---|---|---|
-| US01 | Como recepcionista, quero cadastrar pacientes para manter os dados atualizados | Alta | 1 |
-| US02 | Como recepcionista, quero agendar consultas para organizar a agenda dos médicos | Alta | 1 |
-| US03 | Como médico, quero acessar o prontuário do paciente para consultar o histórico | Alta | 1 |
-| US04 | Como recepcionista, quero gerenciar a fila de espera para chamar pacientes na ordem | Alta | 2 |
-| US05 | Como paciente, quero ver o painel da fila para saber minha posição | Média | 2 |
-| US06 | Como médico, quero registrar o atendimento no prontuário eletrônico | Alta | 2 |
-| US07 | Como recepcionista, quero realizar triagem do paciente antes da consulta | Média | 3 |
-| US08 | Como administrador, quero ver relatórios de indicadores para tomar decisões | Média | 3 |
-| US09 | Como administrador, quero controlar o acesso por perfis para garantir segurança | Alta | 3 |
-| US10 | Como sistema, quero registrar logs de acesso ao prontuário para auditoria | Alta | 3 |
+<img width="632" height="452" alt="Screenshot_92" src="https://github.com/user-attachments/assets/dd39e1b0-177d-4293-9f24-79901a402876" />
+
 
 ## 1.4 Planejamento de Sprints
 
