@@ -29,20 +29,8 @@ A Clínica Saúde Popular enfrenta os seguintes desafios:
 
 ### 1.2.1 Requisitos Funcionais
 
-| ID | Requisito | Prioridade |
-|---|---|---|
-| RF01 | Cadastrar pacientes com dados pessoais e contato | Alta |
-| RF02 | Cadastrar profissionais de saúde com especialidade e CRM | Alta |
-| RF03 | Agendar consultas com data, horário e profissional | Alta |
-| RF04 | Registrar atendimento com anamnese e prescrição (prontuário) | Alta |
-| RF05 | Gerenciar fila de espera em tempo real | Alta |
-| RF06 | Exibir painel de fila na sala de espera | Média |
-| RF07 | Consultar histórico de atendimentos do paciente | Alta |
-| RF08 | Gerar relatórios de indicadores (atendimentos, faltas, tempos) | Média |
-| RF09 | Realizar triagem simplificada (pressão, temperatura, peso) | Média |
-| RF10 | Enviar notificação de chamada ao paciente (painel) | Média |
-| RF11 | Controlar acesso por perfis (recepcionista, médico, admin) | Alta |
-| RF12 | Registrar log de acesso ao prontuário | Alta |
+<img width="604" height="537" alt="Screenshot_90" src="https://github.com/user-attachments/assets/abd1cd89-fb6d-4b85-9d2f-c5e99c624712" />
+
 
 ### 1.2.2 Requisitos Não Funcionais
 
