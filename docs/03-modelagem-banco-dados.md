@@ -82,16 +82,8 @@ O modelo foi normalizado até a **Terceira Forma Normal (3FN)**:
 
 ### Tabela PACIENTE
 
-| Coluna | Tipo | Restrição | Descrição |
-|---|---|---|---|
-| id_paciente | INT IDENTITY | PK | Identificador único |
-| nome | VARCHAR(200) | NOT NULL | Nome completo |
-| cpf | CHAR(11) | UNIQUE, NOT NULL | CPF (somente números) |
-| data_nascimento | DATE | NOT NULL | Data de nascimento |
-| telefone | VARCHAR(15) | NULL | Telefone de contato |
-| email | VARCHAR(150) | NULL | E-mail |
-| endereco | VARCHAR(300) | NULL | Endereço completo |
-| created_at | DATETIME | DEFAULT GETDATE() | Data de criação |
+<img width="600" height="354" alt="Screenshot_95" src="https://github.com/user-attachments/assets/643503bb-f926-4193-97cc-e4351775f15a" />
+
 
 ### Tabela PROFISSIONAL
 
