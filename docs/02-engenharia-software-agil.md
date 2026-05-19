@@ -15,12 +15,8 @@ A Clínica Saúde Popular enfrenta os seguintes desafios:
 
 ### 1.1.2 Atores Envolvidos
 
-| Ator | Descrição |
-|---|---|
-| Paciente | Pessoa que busca atendimento na clínica |
-| Recepcionista | Responsável pelo cadastro, agendamento e gestão da fila |
-| Profissional de Saúde | Médico ou enfermeiro que realiza o atendimento |
-| Administrador | Gestor da clínica com acesso a relatórios e configurações |
+<img width="416" height="252" alt="Screenshot_89" src="https://github.com/user-attachments/assets/33384ccc-d01e-4a4e-82ad-c5610b8b82c0" />
+
 
 ### 1.1.3 Restrições
 
