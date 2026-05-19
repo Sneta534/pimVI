@@ -34,15 +34,8 @@ A Clínica Saúde Popular enfrenta os seguintes desafios:
 
 ### 1.2.2 Requisitos Não Funcionais
 
-| ID | Requisito | Categoria |
-|---|---|---|
-| RNF01 | Tempo de resposta máximo de 3 segundos por tela | Desempenho |
-| RNF02 | Dados de saúde criptografados em repouso e em trânsito | Segurança |
-| RNF03 | Conformidade com a LGPD | Segurança |
-| RNF04 | Disponibilidade de 99,5% em horário comercial | Disponibilidade |
-| RNF05 | Interface responsiva para tablets e desktops | Usabilidade |
-| RNF06 | Backup diário automatizado do banco de dados | Confiabilidade |
-| RNF07 | Suporte a pelo menos 20 acessos simultâneos | Escalabilidade |
+<img width="579" height="330" alt="Screenshot_91" src="https://github.com/user-attachments/assets/d9fc7385-035e-412d-8d7d-5066f0bf9484" />
+
 
 ## 1.3 Backlog do Produto
 
