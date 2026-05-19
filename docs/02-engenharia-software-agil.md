@@ -65,12 +65,8 @@ O backlog foi organizado em formato de User Stories, priorizadas por valor para 
 
 O acompanhamento do projeto foi realizado por meio de um quadro Kanban com as colunas:
 
-| A Fazer | Em Progresso | Em Revisão | Concluído |
-|---|---|---|---|
-| US07 | US06 | US04 | US01 |
-| US08 | | US05 | US02 |
-| US09 | | | US03 |
-| US10 | | | |
+<img width="470" height="218" alt="Screenshot_93" src="https://github.com/user-attachments/assets/3b3c80fa-7238-4cd3-a6b5-271b01e605b4" />
+
 
 ## 1.6 Plano de Verificação e Validação
 
