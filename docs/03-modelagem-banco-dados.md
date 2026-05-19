@@ -92,16 +92,8 @@ O modelo foi normalizado até a **Terceira Forma Normal (3FN)**:
 
 ### Tabela AGENDAMENTO
 
-| Coluna | Tipo | Restrição | Descrição |
-|---|---|---|---|
-| id_agendamento | INT IDENTITY | PK | Identificador único |
-| id_paciente | INT | FK → PACIENTE | Paciente agendado |
-| id_profissional | INT | FK → PROFISSIONAL | Profissional responsável |
-| id_consultorio | INT | FK → CONSULTORIO | Consultório da consulta |
-| data_hora | DATETIME | NOT NULL | Data e hora da consulta |
-| status | VARCHAR(20) | DEFAULT 'agendado' | agendado, confirmado, cancelado, realizado, falta |
-| observacoes | VARCHAR(500) | NULL | Observações |
-| created_at | DATETIME | DEFAULT GETDATE() | Data de criação |
+<img width="669" height="313" alt="Screenshot_97" src="https://github.com/user-attachments/assets/d787a79d-a73a-4540-86d4-8b89021e9650" />
+
 
 ### Tabela FILA
 
