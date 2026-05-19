@@ -1,0 +1,83 @@
+{
+    "descricao": "Esquema NoSQL (MongoDB) para o módulo complementar do SaúdePOP",
+    "colecoes": {
+        "logs_acesso": {
+            "descricao": "Registros de acesso ao prontuário eletrônico para auditoria e conformidade com a LGPD",
+            "exemplo_documento": {
+                "_id": "ObjectId('6651a1b2c3d4e5f6a7b8c9d0')",
+                "tipo": "acesso_prontuario",
+                "usuario_id": 5,
+                "usuario_nome": "Dr. Carlos Mendes",
+                "usuario_perfil": "medico",
+                "paciente_id": 42,
+                "paciente_cpf": "12345678901",
+                "acao": "visualizacao",
+                "data_hora": "2025-03-15T14:30:00Z",
+                "ip_origem": "192.168.1.105",
+                "detalhes": "Acesso ao histórico completo do paciente"
+            },
+            "indices": [
+                { "campo": "paciente_id", "tipo": "ascending" },
+                { "campo": "data_hora", "tipo": "descending" },
+                { "campo": "usuario_id", "tipo": "ascending" }
+            ],
+            "consultas_basicas": [
+                "db.logs_acesso.find({ paciente_id: 42 }).sort({ data_hora: -1 })",
+                "db.logs_acesso.find({ usuario_id: 5, data_hora: { $gte: ISODate('2025-03-01') } })",
+                "db.logs_acesso.aggregate([ { $match: { data_hora: { $gte: ISODate('2025-02-01') } } }, { $group: { _id: '$usuario_nome', total_acessos: { $sum: 1 } } }, { $sort: { total_acessos: -1 } } ])"
+            ]
+        },
+        "anotacoes_consulta": {
+            "descricao": "Anotações livres do profissional de saúde durante a consulta, sem esquema fixo",
+            "exemplo_documento": {
+                "_id": "ObjectId('6651b2c3d4e5f6a7b8c9d0e1')",
+                "tipo": "anotacao_consulta",
+                "atendimento_id": 127,
+                "profissional_id": 3,
+                "profissional_nome": "Dra. Paula Ferreira",
+                "data_hora": "2025-03-15T15:00:00Z",
+                "conteudo": "Paciente relata melhora significativa dos sintomas após início do tratamento com losartana. PA hoje: 130/85. Manter medicação e retornar em 30 dias para nova avaliação.",
+                "tags": ["acompanhamento", "hipertensao", "melhora"],
+                "anexos": []
+            },
+            "indices": [
+                { "campo": "atendimento_id", "tipo": "ascending" },
+                { "campo": "tags", "tipo": "ascending" }
+            ],
+            "consultas_basicas": [
+                "db.anotacoes_consulta.find({ atendimento_id: 127 })",
+                "db.anotacoes_consulta.find({ tags: 'hipertensao' }).sort({ data_hora: -1 })",
+                "db.anotacoes_consulta.find({ profissional_id: 3, data_hora: { $gte: ISODate('2025-03-01') } })"
+            ]
+        },
+        "eventos_fila": {
+            "descricao": "Histórico de movimentações na fila de espera para auditoria e análise de padrões",
+            "exemplo_documento": {
+                "_id": "ObjectId('6651c3d4e5f6a7b8c9d0e1f2')",
+                "tipo": "evento_fila",
+                "fila_id": 89,
+                "paciente_id": 42,
+                "consultorio_id": 1,
+                "evento": "entrada",
+                "posicao": 3,
+                "data_hora": "2025-03-15T08:25:00Z",
+                "operador_id": 1,
+                "detalhes": {
+                    "prioridade": 0,
+                    "qtd_fila_momento": 5,
+                    "tempo_estimado_min": 18
+                }
+            },
+            "indices": [
+                { "campo": "fila_id", "tipo": "ascending" },
+                { "campo": "data_hora", "tipo": "descending" },
+                { "campo": "evento", "tipo": "ascending" }
+            ],
+            "consultas_basicas": [
+                "db.eventos_fila.find({ fila_id: 89 }).sort({ data_hora: 1 })",
+                "db.eventos_fila.find({ evento: 'entrada', data_hora: { $gte: ISODate('2025-03-15T00:00:00Z'), $lt: ISODate('2025-03-16T00:00:00Z') } })",
+                "db.eventos_fila.aggregate([ { $match: { evento: 'chamada' } }, { $group: { _id: '$consultorio_id', media_espera: { $avg: '$detalhes.tempo_estimado_min' } } } ])"
+            ]
+        }
+    }
+}
