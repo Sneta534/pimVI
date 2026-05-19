@@ -87,16 +87,8 @@ O modelo foi normalizado até a **Terceira Forma Normal (3FN)**:
 
 ### Tabela PROFISSIONAL
 
-| Coluna | Tipo | Restrição | Descrição |
-|---|---|---|---|
-| id_profissional | INT IDENTITY | PK | Identificador único |
-| nome | VARCHAR(200) | NOT NULL | Nome completo |
-| crm | VARCHAR(20) | UNIQUE, NOT NULL | Registro CRM |
-| especialidade | VARCHAR(100) | NOT NULL | Especialidade médica |
-| telefone | VARCHAR(15) | NULL | Telefone |
-| email | VARCHAR(150) | NULL | E-mail |
-| ativo | BIT | DEFAULT 1 | Se está ativo |
-| created_at | DATETIME | DEFAULT GETDATE() | Data de criação |
+<img width="602" height="363" alt="Screenshot_96" src="https://github.com/user-attachments/assets/258ba367-725b-4437-adf8-52989fe6a2fa" />
+
 
 ### Tabela AGENDAMENTO
 
