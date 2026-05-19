@@ -78,16 +78,8 @@ O acompanhamento do projeto foi realizado por meio de um quadro Kanban com as co
 
 ### 1.6.2 Casos de Teste
 
-| ID | Caso de Teste | Resultado Esperado | Status |
-|---|---|---|---|
-| CT01 | Cadastrar paciente com dados válidos | Paciente salvo no banco e mensagem de sucesso | Aprovado |
-| CT02 | Cadastrar paciente sem CPF | Mensagem de erro "CPF obrigatório" | Aprovado |
-| CT03 | Agendar consulta em horário disponível | Agendamento criado com confirmação | Aprovado |
-| CT04 | Agendar consulta em horário ocupado | Mensagem de erro "Horário indisponível" | Aprovado |
-| CT05 | Adicionar paciente à fila de espera | Paciente aparece no painel de fila | Aprovado |
-| CT06 | Chamar próximo paciente da fila | Status atualizado para "Em atendimento" | Aprovado |
-| CT07 | Registrar atendimento no prontuário | Registro salvo com data/hora e profissional | Aprovado |
-| CT08 | Consultar histórico do paciente | Lista de atendimentos exibida em ordem cronológica | Aprovado |
+<img width="1055" height="447" alt="Screenshot_94" src="https://github.com/user-attachments/assets/93b89d44-34a4-4d1b-832c-68b50bf7fe7f" />
+
 
 ## 1.7 Aplicação das Práticas Ágeis e Qualidade
 
