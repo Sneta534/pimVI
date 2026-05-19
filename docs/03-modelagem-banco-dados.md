@@ -97,17 +97,8 @@ O modelo foi normalizado até a **Terceira Forma Normal (3FN)**:
 
 ### Tabela FILA
 
-| Coluna | Tipo | Restrição | Descrição |
-|---|---|---|---|
-| id_fila | INT IDENTITY | PK | Identificador único |
-| id_paciente | INT | FK → PACIENTE | Paciente na fila |
-| id_consultorio | INT | FK → CONSULTORIO | Consultório destino |
-| posicao | INT | NOT NULL | Posição atual na fila |
-| status | VARCHAR(20) | DEFAULT 'aguardando' | aguardando, chamado, em_atendimento, atendido |
-| hora_entrada | DATETIME | NOT NULL | Hora de entrada na fila |
-| hora_chamada | DATETIME | NULL | Hora em que foi chamado |
-| prioridade | INT | DEFAULT 0 | 0=normal, 1=prioritário |
-| created_at | DATETIME | DEFAULT GETDATE() | Data de criação |
+<img width="687" height="351" alt="Screenshot_98" src="https://github.com/user-attachments/assets/53b7a1b3-b779-4723-94ff-f38391f7bebe" />
+
 
 ## 2.4 Scripts SQL Server (DDL)
 
