@@ -53,11 +53,16 @@ pimVI/
 │   ├── personas.md                    # Personas do sistema
 │   ├── jornadas.md                    # Mapas de jornada do usuário
 │   ├── wireframes.md                  # Wireframes das telas principais
-│   └── teste-usabilidade.md           # Relatório de teste de usabilidade
+│   ├── teste-usabilidade.md           # Relatório de teste de usabilidade
+│   ├── pesquisa-exploratoria.md       # Pesquisa exploratória (entrevistas, relatos)
+│   ├── prototipo-navegavel.md         # Protótipo navegável com capturas de tela
+│   └── capturas/                      # Capturas de tela do sistema
 ├── ml/                                # Machine Learning
 │   ├── dados_atendimentos.csv         # Dataset simulado
 │   ├── dicionario_dataset.md          # Dicionário do dataset
-│   └── pipeline_ml.py                 # Pipeline completo de ML
+│   ├── pipeline_ml.py                 # Pipeline completo de ML (script)
+│   ├── pipeline_ml.ipynb              # Pipeline completo de ML (Jupyter Notebook)
+│   └── resultados/                    # Gráficos e resultados gerados
 └── src/                               # Código-fonte da aplicação web
     ├── app.py                         # Aplicação principal (Flask)
     ├── models.py                      # Modelos de dados
@@ -72,10 +77,10 @@ Para compilar o trabalho acadêmico, copie os arquivos da pasta `docs/` na ordem
 2. **Resumo / Abstract** — incluídos na introdução
 3. **Sumário** — gerado automaticamente no Word
 4. `docs/01-introducao.md` — Introdução (~1 página)
-5. `docs/02-engenharia-software-agil.md` — Capítulo 1 (~4 páginas)
+5. `docs/02-engenharia-software-agil.md` — Capítulo 1 (~5 páginas)
 6. `docs/03-modelagem-banco-dados.md` — Capítulo 2 (~5 páginas)
-7. `docs/04-ux-ui-design.md` — Capítulo 3 (~4 páginas)
-8. `docs/05-machine-learning.md` — Capítulo 4 (~5 páginas)
+7. `docs/04-ux-ui-design.md` — Capítulo 3 (~5 páginas)
+8. `docs/05-machine-learning.md` — Capítulo 4 (~6 páginas)
 9. `docs/06-conclusao.md` — Conclusão (~1 página)
 10. `docs/07-referencias.md` — Referências
 

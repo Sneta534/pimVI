@@ -37,3 +37,11 @@ SOMMERVILLE, Ian. **Engenharia de software**. 10. ed. São Paulo: Pearson, 2018.
 SRIVASTAVA, Tavish; GUPTA, Prateek. **Applied Machine Learning with Python**. Birmingham: Packt Publishing, 2020.
 
 BRASIL. **Lei nº 13.709, de 14 de agosto de 2018**. Lei Geral de Proteção de Dados Pessoais (LGPD). Disponível em: https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm. Acesso em: 10 mar. 2025.
+
+INTERNATIONAL ORGANIZATION FOR STANDARDIZATION. **ISO/IEC 25010:2011** — Systems and software engineering — Systems and software Quality Requirements and Evaluation (SQuaRE) — System and software quality models. Genebra: ISO, 2011.
+
+INTERNATIONAL ORGANIZATION FOR STANDARDIZATION. **ISO/IEC 12207:2017** — Systems and software engineering — Software life cycle processes. Genebra: ISO, 2017.
+
+PEDREGOSA, Fabian *et al.* Scikit-learn: Machine Learning in Python. **Journal of Machine Learning Research**, v. 12, p. 2825-2830, 2011. Disponível em: https://jmlr.csail.mit.edu/papers/v12/pedregosa11a.html. Acesso em: 10 mar. 2025.
+
+MCKINNEY, Wes. **Python para análise de dados**: tratamento de dados com Pandas, NumPy e Jupyter. 3. ed. São Paulo: Novatec, 2023.
