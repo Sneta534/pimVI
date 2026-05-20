@@ -48,3 +48,18 @@
 | **4. Consulta** | Examina o paciente | Consultório | 😐 Concentração | Dados de triagem já disponíveis |
 | **5. Registro** | Registra anamnese e prescrição | Prontuário eletrônico | 😐 Concentração | Campos estruturados agilizam o registro |
 | **6. Finalização** | Salva atendimento e chama próximo | Sistema | 😊 Satisfação | Transição fluida entre pacientes |
+
+---
+
+## Jornada 4: Paciente consulta seu histórico de atendimentos
+
+**Persona**: Maria dos Santos (Paciente)
+**Cenário**: Maria quer verificar os resultados de exames anteriores e o que foi prescrito na última consulta, pois precisa comprar a medicação novamente.
+
+| Etapa | Ação do Paciente | Canal | Sentimento | Oportunidade |
+|---|---|---|---|---|
+| **1. Chegada** | Apresenta-se na recepção e solicita ver seu histórico | Balcão | 😟 Insegurança — será que tem registro? | Recepcionista localiza paciente por CPF em segundos |
+| **2. Localização** | Recepcionista busca paciente por CPF no sistema | Sistema | 😐 Expectativa | Busca instantânea sem depender de pastas físicas |
+| **3. Visualização** | Recepcionista mostra na tela ou médico acessa no consultório | Tela do sistema | 😊 Alívio — tudo registrado | Histórico completo com datas, diagnósticos e prescrições |
+| **4. Conferência** | Paciente confirma medicamento e dosagem | Consultório/Balcão | 😊 Confiança | Dados organizados facilitam a conferência |
+| **5. Impressão** | Recebe cópia impressa da prescrição anterior se necessário | Impressora | 😊 Satisfação | Opção de reimprimir prescrições passadas |
