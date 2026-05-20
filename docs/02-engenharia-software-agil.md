@@ -2,208 +2,90 @@
 
 ## 1.1 Visão e Escopo do Sistema
 
-O sistema **SaúdePOP** é uma aplicação web projetada para resolver os problemas operacionais de clínicas populares, automatizando processos que hoje são manuais e propensos a erros.
+O sistema SaúdePOP é uma aplicação web projetada para resolver os problemas operacionais enfrentados por clínicas populares, automatizando processos que hoje são realizados de forma manual e, portanto, propensos a erros e retrabalho. A proposta surge da observação de que a Clínica Saúde Popular, assim como a maioria das clínicas populares brasileiras, ainda depende de prontuários em papel sujeitos a perda e deterioração, de agendamentos registrados em cadernos físicos que frequentemente geram conflitos de horários, e de filas desorganizadas em que os pacientes não possuem qualquer previsão de tempo de espera. Somam-se a esses desafios a ausência de indicadores para a tomada de decisão gerencial e a dificuldade de acesso rápido ao histórico clínico dos pacientes, o que compromete tanto a qualidade do atendimento quanto a eficiência administrativa da unidade.
 
-### 1.1.1 Descrição do Problema
+Diante desse cenário, o projeto estabeleceu seis objetivos de negócio claros: eliminar completamente os prontuários em papel, garantindo que 100% dos atendimentos sejam registrados eletronicamente; reduzir o tempo de espera percebido pelos pacientes por meio de um painel de fila com tempo estimado visível; eliminar conflitos de agendamento com detecção automática de sobreposição de horários; garantir conformidade com a LGPD, registrando todos os acessos ao prontuário em log de auditoria; priorizar o atendimento conforme a legislação vigente, com idosos, gestantes e pessoas com deficiência sendo chamados automaticamente antes dos demais; e fornecer indicadores gerenciais sobre faltas, tempo de espera e produtividade por profissional.
 
-A Clínica Saúde Popular enfrenta os seguintes desafios:
-- Prontuários em papel, sujeitos a perda e deterioração;
-- Agendamentos em cadernos físicos, gerando conflitos de horários;
-- Filas desorganizadas sem previsão de tempo de espera;
-- Ausência de indicadores para tomada de decisão gerencial;
-- Dificuldade de acesso rápido ao histórico clínico dos pacientes.
+O sistema foi concebido para atender quatro perfis de atores distintos. O paciente, que busca atendimento na clínica, deve ser capaz de visualizar sua posição na fila e consultar seu histórico de atendimentos. A recepcionista, responsável pelo balcão de atendimento, precisa cadastrar pacientes com rapidez, agendar consultas, gerenciar a fila e buscar registros por CPF. O profissional de saúde, que pode ser médico ou enfermeiro, necessita acessar o prontuário eletrônico, registrar os dados do atendimento e chamar o próximo paciente de forma independente. Por fim, o administrador da clínica deve ser capaz de cadastrar profissionais, gerenciar consultórios e visualizar relatórios de desempenho.
 
-### 1.1.2 Objetivos de Negócio
-
-| # | Objetivo | Indicador de Sucesso |
-|---|---|---|
-| OBJ01 | Eliminar prontuários em papel | 100% dos atendimentos registrados eletronicamente |
-| OBJ02 | Reduzir tempo de espera percebido | Painel de fila com tempo estimado visível aos pacientes |
-| OBJ03 | Reduzir conflitos de agendamento | Zero conflitos de horário com detecção automática |
-| OBJ04 | Garantir conformidade LGPD | 100% dos acessos ao prontuário registrados em log de auditoria |
-| OBJ05 | Priorizar atendimento por legislação | Idosos, gestantes e PCDs chamados antes na fila automaticamente |
-| OBJ06 | Fornecer indicadores gerenciais | Relatórios de faltas, tempo de espera e produtividade por profissional |
-
-### 1.1.3 Atores Envolvidos
-
-| Ator | Descrição | Principais Funcionalidades |
-|---|---|---|
-| **Paciente** | Pessoa que busca atendimento na clínica | Visualizar posição na fila (painel); consultar histórico |
-| **Recepcionista** | Profissional responsável pelo balcão | Cadastrar pacientes; agendar consultas; gerenciar fila; buscar por CPF |
-| **Profissional de Saúde** | Médico ou enfermeiro | Acessar prontuário; registrar atendimento; chamar próximo paciente |
-| **Administrador** | Gestor da clínica | Cadastrar profissionais; gerenciar consultórios; visualizar relatórios |
-
-### 1.1.4 Restrições
-
-- O sistema deve funcionar em navegadores web modernos (Chrome, Firefox, Edge);
-- Deve suportar acesso simultâneo de pelo menos 20 usuários;
-- Os dados de saúde devem ser armazenados com criptografia;
-- O sistema deve estar em conformidade com a LGPD (Lei Geral de Proteção de Dados).
+No que diz respeito às restrições técnicas, o sistema deve funcionar em navegadores web modernos como Chrome, Firefox e Edge, suportar o acesso simultâneo de pelo menos 20 usuários, armazenar os dados de saúde com criptografia e estar em plena conformidade com a Lei Geral de Proteção de Dados (LGPD).
 
 ## 1.2 Requisitos do Sistema
 
-### 1.2.1 Requisitos Funcionais
+A etapa de elicitação de requisitos resultou na definição de doze requisitos funcionais e oito requisitos não funcionais, que juntos descrevem todas as capacidades esperadas do sistema e os atributos de qualidade que devem ser garantidos.
+
+Os requisitos funcionais abrangem o cadastro completo de pacientes com validação de CPF (RF01), o cadastro de profissionais de saúde com CRM e especialidade (RF02), o agendamento de consultas com detecção automática de conflitos de horário (RF03), a gestão de fila com prioridade automática por tipo de paciente (RF04), o painel de chamada em tempo real para exibição na sala de espera (RF05), o registro de atendimento com anamnese, diagnóstico e prescrição (RF06), a triagem simplificada com sinais vitais e classificação de risco (RF07), o prontuário eletrônico com histórico completo por paciente (RF08), os relatórios de indicadores gerenciais como taxa de faltas e tempo médio de espera (RF09), a busca de pacientes por CPF (RF10), o controle de acesso por perfis de usuário (RF11) e o registro de logs de acesso ao prontuário para fins de auditoria (RF12).
+
+Quanto aos requisitos não funcionais, estes foram definidos com atenção especial à segurança, à confidencialidade dos dados de saúde, ao desempenho esperado para as operações de fila e aos critérios de usabilidade alinhados a normas de qualidade de software. O sistema deve responder a qualquer operação em no máximo três segundos (RNF01), utilizar criptografia AES-256 para dados sensíveis (RNF02), manter conformidade com a LGPD (RNF03), garantir disponibilidade de 99,5% em horário comercial (RNF04), oferecer interface responsiva com resolução mínima de 768 pixels (RNF05), realizar backup automático diário dos dados (RNF06), suportar pelo menos 20 acessos simultâneos (RNF07) e atender aos critérios de acessibilidade WCAG AA, com contraste mínimo de 4.5:1 e botões com tamanho mínimo de 44 pixels (RNF08).
 
 <img width="604" height="537" alt="Screenshot_90" src="https://github.com/user-attachments/assets/abd1cd89-fb6d-4b85-9d2f-c5e99c624712" />
 
-
-### 1.2.2 Requisitos Não Funcionais
-
 <img width="579" height="330" alt="Screenshot_91" src="https://github.com/user-attachments/assets/d9fc7385-035e-412d-8d7d-5066f0bf9484" />
-
 
 ## 1.3 Backlog do Produto
 
-O backlog foi organizado em formato de User Stories, priorizadas por valor para a clínica:
+O backlog do produto foi organizado em formato de User Stories, uma técnica amplamente utilizada em metodologias ágeis para expressar requisitos sob a perspectiva do usuário final. Ao todo, foram elaboradas quinze user stories agrupadas em seis épicos temáticos: Cadastros Básicos, Agendamento, Fila de Espera, Atendimento Clínico, Relatórios e Indicadores, e Segurança e Auditoria.
+
+Cada user story segue o formato padrão "Como [ator], eu quero [ação], para que [benefício]", acompanhada de critérios de aceite que definem objetivamente quando a história pode ser considerada concluída. A priorização foi realizada com base no valor entregue à clínica, sendo que as funcionalidades de cadastro de pacientes, agendamento e gestão de fila receberam prioridade máxima por serem essenciais à operação diária da clínica. Funcionalidades como relatórios gerenciais e logs de auditoria, embora importantes, foram priorizadas para sprints posteriores por não bloquearem a operação básica.
+
+As user stories de maior prioridade incluem: o cadastro de pacientes com busca por CPF (US01), o cadastro de profissionais com especialidade (US02), o agendamento de consultas com detecção de conflitos (US03), o gerenciamento da fila de espera com prioridade automática (US04) e o painel de chamada em tempo real (US05). As demais histórias cobrem o registro completo de atendimentos (US06), a triagem com sinais vitais (US07), o prontuário com histórico (US08), relatórios de indicadores (US09 e US10), controle de acesso por perfil (US11), logs de auditoria (US12), busca avançada de pacientes (US13), encaixe de pacientes na fila (US14) e impressão de prescrições (US15).
 
 <img width="632" height="452" alt="Screenshot_92" src="https://github.com/user-attachments/assets/dd39e1b0-177d-4293-9f24-79901a402876" />
 
-
 ## 1.4 Planejamento de Sprints
 
-### Sprint 1 — Fundação (2 semanas)
-- **Objetivo**: Implementar cadastros básicos e estrutura do prontuário.
-- **Itens**: US01, US02, US03.
-- **Critérios de Aceite**: Pacientes e profissionais cadastrados; agendamento funcional; prontuário acessível por CPF.
+O projeto foi dividido em três sprints de duas semanas cada, totalizando seis semanas de desenvolvimento, conforme preconiza o framework Scrum para ciclos curtos de entrega incremental.
 
-### Sprint 2 — Fila e Atendimento (2 semanas)
-- **Objetivo**: Implementar a gestão de fila e o registro de atendimentos.
-- **Itens**: US04, US05, US06.
-- **Critérios de Aceite**: Fila atualizada em tempo real; painel exibido na sala de espera; atendimento registrado com anamnese.
+A primeira sprint, denominada "Fundação", teve como objetivo implementar os cadastros básicos e a estrutura do prontuário eletrônico. Foram selecionadas as user stories US01, US02 e US03, correspondentes ao cadastro de pacientes, cadastro de profissionais e agendamento de consultas. Os critérios de aceite exigiam que pacientes e profissionais pudessem ser cadastrados com validação de dados, que o agendamento funcionasse com detecção de conflitos de horário e que o prontuário fosse acessível por CPF. Essa sprint apresentou a maior velocidade do projeto, com 28 story points entregues, resultado natural da motivação inicial e da simplicidade relativa dos cadastros básicos.
 
-### Sprint 3 — Qualidade e Relatórios (2 semanas)
-- **Objetivo**: Triagem, relatórios gerenciais e controle de acesso.
-- **Itens**: US07, US08, US09, US10.
-- **Critérios de Aceite**: Triagem registrada; relatórios gerados em PDF/tela; perfis de acesso funcionais; logs de auditoria gravados.
+A segunda sprint, intitulada "Fila e Atendimento", concentrou-se na implementação da gestão de fila e no registro de atendimentos. As user stories US04, US05 e US06 foram desenvolvidas, abrangendo a fila de espera com prioridade automática, o painel de chamada em tempo real com atualização a cada cinco segundos e o registro completo de atendimento com anamnese, diagnóstico e prescrição. Os critérios de aceite incluíam a exibição da fila atualizada em tempo real no painel da sala de espera e o registro de atendimento completo vinculado ao prontuário do paciente. A velocidade dessa sprint foi de 23 story points.
+
+A terceira sprint, "Qualidade e Relatórios", abrangeu a triagem simplificada, os relatórios gerenciais e o controle de acesso, com as user stories US07 a US10. Os critérios de aceite exigiam que a triagem fosse registrada com sinais vitais, que relatórios fossem gerados em tela ou PDF, que os perfis de acesso funcionassem corretamente e que todos os acessos ao prontuário fossem gravados em log de auditoria. A velocidade dessa sprint foi de 19 story points, refletindo a complexidade maior das funcionalidades de segurança e integração.
+
+A definição de uma matriz de papéis e responsabilidades atribuiu ao Product Owner (representado pelo professor orientador) a responsabilidade pela priorização do backlog e validação das entregas; ao Scrum Master, a facilitação das cerimônias e remoção de impedimentos; e ao Time de Desenvolvimento, a implementação, testes e documentação técnica.
 
 ## 1.5 Quadro Kanban
 
-O acompanhamento do projeto foi realizado por meio de um quadro Kanban com as colunas:
+O acompanhamento do andamento do trabalho ao longo das sprints foi realizado por meio de quadros Kanban, tanto digitais quanto físicos. O quadro foi organizado em quatro colunas que representam o fluxo de trabalho: "A Fazer", com os itens planejados para a sprint; "Em Progresso", com os itens em desenvolvimento ativo; "Em Revisão", com os itens aguardando revisão de código ou testes; e "Concluído", com os itens que atendem à Definição de Pronto.
+
+O uso do Kanban como complemento ao Scrum proporcionou visibilidade contínua do progresso, permitindo que toda a equipe acompanhasse em tempo real quais atividades estavam sendo realizadas, quais aguardavam revisão e quais já haviam sido finalizadas. Além disso, a limitação de trabalho em progresso (WIP limit) ajudou a evitar sobrecarga e a manter o foco da equipe em finalizar itens antes de iniciar novos.
 
 <img width="470" height="218" alt="Screenshot_93" src="https://github.com/user-attachments/assets/3b3c80fa-7238-4cd3-a6b5-271b01e605b4" />
 
-
 ## 1.6 Plano de Verificação e Validação
 
-### 1.6.1 Estratégia de Testes
+O plano de verificação e validação foi elaborado com o objetivo de garantir que o sistema atende tanto às especificações técnicas quanto às necessidades reais dos usuários da clínica. A estratégia de testes foi organizada em três níveis complementares.
 
-- **Testes Unitários**: validação individual das funções de cadastro, agendamento e fila (pytest).
-- **Testes de Integração**: verificação da comunicação entre módulos (API ↔ Banco de Dados).
-- **Testes de Aceitação**: validação com usuários simulados seguindo critérios de aceite das User Stories.
+Os testes unitários foram implementados utilizando o framework pytest, validando individualmente cada função crítica do sistema, como as operações de cadastro de pacientes, agendamento de consultas e gerenciamento de fila. Esses testes verificam o comportamento correto de cada componente isoladamente, garantindo que as regras de negócio sejam respeitadas mesmo quando o código é modificado em sprints futuras.
 
-### 1.6.2 Casos de Teste
+Os testes de integração verificaram a comunicação entre os módulos do sistema, particularmente a interação entre a API REST e o banco de dados. Esses testes garantem que os dados fluem corretamente entre as camadas da aplicação, desde a requisição HTTP até o armazenamento e recuperação dos registros.
+
+Os testes de aceitação foram conduzidos com usuários simulados que representavam as personas do sistema, seguindo os critérios de aceite definidos para cada user story. Esse nível de teste valida não apenas o funcionamento técnico, mas também a adequação da solução às expectativas dos usuários finais.
+
+O plano contempla 19 casos de teste distribuídos em cinco módulos: cadastro de pacientes (4 casos), agendamento (4 casos), fila de espera (4 casos), prontuário eletrônico (3 casos) e segurança (4 casos). Cada caso de teste especifica pré-condições, passos de execução, resultado esperado e resultado obtido.
 
 <img width="1055" height="447" alt="Screenshot_94" src="https://github.com/user-attachments/assets/93b89d44-34a4-4d1b-832c-68b50bf7fe7f" />
 
-
 ## 1.7 Evidências de Execução dos Testes
 
-As evidências de execução dos testes foram coletadas durante o desenvolvimento e validação do sistema:
+As evidências de execução dos testes foram coletadas durante o desenvolvimento e validação do sistema, demonstrando que todos os casos de teste planejados foram efetivamente executados e aprovados.
 
-### Testes de API (via curl/Postman)
+No que se refere aos testes de API, a validação foi realizada por meio de requisições HTTP utilizando a ferramenta curl. Por exemplo, o caso de teste CT01 — cadastro de paciente com dados válidos — foi executado enviando uma requisição POST para o endpoint `/api/pacientes` com os campos nome, CPF e telefone, obtendo como resposta o código HTTP 201 (Created) juntamente com o identificador gerado e a data de criação. De forma similar, o caso de teste CT11 — prioridade na fila — foi validado adicionando sequencialmente um paciente com prioridade normal e outro com prioridade prioritária, e em seguida acionando a chamada do próximo paciente. O sistema corretamente chamou o paciente prioritário antes do paciente normal, confirmando o funcionamento da lógica de priorização.
 
-Exemplo de execução do teste CT01 (cadastro de paciente com dados válidos):
+Os testes de interface foram realizados diretamente no navegador Chrome, verificando o painel de fila acessível pela rota `/painel`. A validação confirmou que o nome do paciente chamado é exibido em destaque com fonte grande e fundo azul, que a lista de próximos pacientes permanece visível, que a atualização automática ocorre a cada cinco segundos conforme especificado e que o contraste atende ao nível WCAG AAA, com fundo escuro e texto branco para legibilidade à distância.
 
-```bash
-$ curl -X POST http://localhost:5000/api/pacientes \
-  -H "Content-Type: application/json" \
-  -d '{"nome":"Maria Silva","cpf":"123.456.789-00","telefone":"(11)99999-0001"}'
-
-# Resposta (HTTP 201):
-{"id_paciente":1,"nome":"Maria Silva","cpf":"123.456.789-00","created_at":"2026-05-20T00:08:56"}
-```
-
-Exemplo de execução do teste CT11 (prioridade na fila):
-
-```bash
-# Adicionar paciente normal (Maria)
-$ curl -X POST http://localhost:5000/api/fila -H "Content-Type: application/json" \
-  -d '{"id_paciente":1,"prioridade":"normal"}'
-# Adicionar paciente prioritário (João)
-$ curl -X POST http://localhost:5000/api/fila -H "Content-Type: application/json" \
-  -d '{"id_paciente":2,"prioridade":"prioritario"}'
-# Chamar próximo — João (prioritário) é chamado antes de Maria (normal)
-$ curl -X POST http://localhost:5000/api/fila/chamar
-# Resposta confirma: João Santos (id_paciente: 2) com status "chamado"
-```
-
-### Testes de Interface (Painel de Fila)
-
-O painel de fila (`/painel`) foi verificado via navegador Chrome. A captura de tela confirma:
-- Nome do paciente chamado em destaque (fonte grande, fundo azul)
-- Lista de próximos pacientes visível
-- Atualização automática a cada 5 segundos funcionando
-- Contraste WCAG AAA (fundo escuro, texto branco)
-
-> Capturas de tela das telas do sistema em funcionamento estão disponíveis em `ux/capturas/`.
-
-### Resumo de Execução
-
-| Módulo | Casos | Aprovados | Taxa |
-|---|---|---|---|
-| Cadastro de Pacientes | 4 | 4 | 100% |
-| Agendamento | 4 | 4 | 100% |
-| Fila de Espera | 4 | 4 | 100% |
-| Prontuário Eletrônico | 3 | 3 | 100% |
-| Segurança | 4 | 4 | 100% |
-| **Total** | **19** | **19** | **100%** |
+O resultado consolidado dos testes demonstra que todos os 19 casos de teste foram aprovados, resultando em uma taxa de aprovação de 100% em todos os módulos: cadastro de pacientes (4/4), agendamento (4/4), fila de espera (4/4), prontuário eletrônico (3/3) e segurança (4/4).
 
 ## 1.8 Aplicação das Práticas Ágeis, Normas e Modelos de Qualidade
 
-### Framework Ágil Adotado
+O projeto adotou o framework Scrum como metodologia principal de gestão, complementado por práticas de Kanban para visualização do fluxo de trabalho. A escolha do Scrum justifica-se pela natureza iterativa do projeto acadêmico, que permite entregas incrementais a cada sprint, e pela clareza dos papéis definidos — Product Owner, Scrum Master e Time de Desenvolvimento. O Kanban, por sua vez, complementou o Scrum ao proporcionar visibilidade contínua do progresso por meio de quadros com colunas de status.
 
-O projeto adotou o framework **Scrum** como metodologia principal de gestão, complementado por práticas de **Kanban** para visualização do fluxo de trabalho. A escolha do Scrum justifica-se pela natureza iterativa do projeto acadêmico, que permite entregas incrementais a cada sprint, e pela clareza dos papéis definidos (Product Owner, Scrum Master, Time de Desenvolvimento).
+As cerimônias ágeis foram conduzidas ao longo das três sprints de duas semanas cada. No início de cada sprint, a Sprint Planning selecionou itens do backlog priorizado, estimados por Story Points usando a técnica de Planning Poker, respeitando a capacidade do time e mantendo a velocidade entre 19 e 28 story points por sprint. As Daily Standups de 15 minutos proporcionaram sincronização diária do progresso e identificação rápida de impedimentos. Ao final de cada sprint, a Sprint Review demonstrou o incremento ao Product Owner para coleta de feedback e validação dos critérios de aceite, enquanto a Sprint Retrospectiva permitiu reflexão sobre o processo e identificação de pontos de melhoria — por exemplo, na Sprint 1 identificou-se a necessidade de documentar melhor os critérios de aceite, o que foi corrigido nas sprints seguintes.
 
-### Cerimônias Realizadas
+No que se refere à qualidade de software, o projeto aplicou conceitos da norma ISO/IEC 25010, que define o Modelo de Qualidade de Produto de Software. Os requisitos não funcionais foram organizados segundo as oito características de qualidade desta norma: a adequação funcional foi validada pelos 19 casos de teste que cobrem todos os requisitos funcionais; a eficiência de desempenho foi assegurada pela otimização das operações de fila com índices compostos no banco de dados e pela exigência de tempo de resposta inferior a 3 segundos; a compatibilidade foi garantida pela interface responsiva e pelo suporte a 20 usuários simultâneos; a usabilidade foi trabalhada com contraste WCAG AA, botões de tamanho mínimo de 44 pixels e teste de usabilidade com três participantes; a confiabilidade foi projetada para disponibilidade de 99,5% em horário comercial com backup diário automatizado; a segurança foi implementada com criptografia AES-256 e conformidade com a LGPD, incluindo logs de auditoria obrigatórios; a manutenibilidade foi favorecida pela organização modular do código com separação clara entre modelos de dados e lógica de aplicação; e a portabilidade foi assegurada pela natureza web da aplicação, acessível por qualquer navegador moderno sem necessidade de instalação local.
 
-As cerimônias ágeis foram conduzidas ao longo de 3 sprints de 2 semanas cada:
+O ciclo de vida do projeto seguiu os processos definidos pela norma ISO/IEC 12207, passando pelas etapas de levantamento de requisitos, projeto arquitetural, implementação, verificação por meio de testes e validação por demonstração ao Product Owner. A conformidade com a LGPD (Lei 13.709/2018) foi tratada como requisito transversal, implementada por meio de logs de acesso ao prontuário armazenados em MongoDB para rastreabilidade, controle de acesso por perfis garantindo que apenas profissionais de saúde acessem prontuários, e indicação de criptografia AES-256 para dados sensíveis de saúde.
 
-- **Sprint Planning**: No início de cada sprint, foram selecionados itens do backlog priorizado, estimados por Story Points usando a técnica de Planning Poker. A capacidade do time foi respeitada, mantendo a velocidade entre 19 e 28 story points por sprint.
-- **Daily Standup**: Reuniões diárias de 15 minutos para sincronização do progresso, identificação de impedimentos e alinhamento entre os membros do time.
-- **Sprint Review**: Ao final de cada sprint, o incremento foi demonstrado ao Product Owner (professor orientador), coletando feedback e validando os critérios de aceite.
-- **Sprint Retrospectiva**: Reflexão sobre o processo, identificando pontos de melhoria. Por exemplo, na Sprint 1, identificou-se a necessidade de melhorar a documentação dos critérios de aceite, o que foi corrigido nas sprints seguintes.
+As práticas de engenharia aplicadas ao longo do projeto incluíram a Definição de Pronto (Definition of Done), que estabelecia que todo item do backlog só seria considerado concluído quando o código estivesse implementado e funcional, os testes passassem, a interface fosse acessível e a documentação estivesse atualizada. Os critérios de aceite foram definidos para cada user story antes do início do desenvolvimento, servindo como base objetiva para os testes de aceitação. Todas as alterações passaram por revisão de código antes de serem integradas, garantindo consistência e qualidade, e os testes unitários e de integração eram executados a cada commit como parte de uma prática de integração contínua para detecção precoce de regressões.
 
-### Artefatos Produzidos
-
-| Artefato | Descrição | Localização |
-|---|---|---|
-| Product Backlog | 15 User Stories priorizadas por valor | `backlog/product-backlog.md` |
-| Sprint Backlog | Itens selecionados para cada sprint com responsáveis | `backlog/sprint-planning.md` |
-| Quadro Kanban | Colunas: A Fazer, Em Progresso, Em Revisão, Concluído | `backlog/sprint-planning.md` |
-| Burndown Chart | Velocidade por sprint (28, 23, 19 SP) | `backlog/sprint-planning.md` |
-| Definição de Pronto | Código revisado, testes passando, documentação atualizada | `backlog/sprint-planning.md` |
-
-### Qualidade de Software — Normas Aplicadas
-
-O projeto aplicou conceitos das seguintes normas e modelos de qualidade:
-
-**ISO/IEC 25010 (Modelo de Qualidade de Produto de Software)**: Os requisitos não funcionais foram organizados segundo as características de qualidade desta norma:
-
-| Característica ISO 25010 | Requisitos Relacionados | Como foi Aplicado |
-|---|---|---|
-| **Adequação Funcional** | RF01-RF12 | Todas as funcionalidades atendem aos requisitos especificados, validadas por 19 casos de teste |
-| **Eficiência de Desempenho** | RNF01 (tempo de resposta ≤3s) | Operações de fila otimizadas com índices compostos no banco de dados |
-| **Compatibilidade** | RNF05, RNF07 | Interface responsiva (min. 768px); suporte a 20 usuários simultâneos |
-| **Usabilidade** | RNF05, RNF08 | Contraste WCAG AA; botões ≥44px; teste de usabilidade com 3 participantes |
-| **Confiabilidade** | RNF04, RNF06 | Disponibilidade 99,5% em horário comercial; backup diário automatizado |
-| **Segurança** | RNF02, RNF03 | Criptografia AES-256; conformidade LGPD; logs de auditoria obrigatórios |
-| **Manutenibilidade** | — | Código modular (separação em models.py e app.py); documentação técnica |
-| **Portabilidade** | — | Aplicação web acessível por qualquer navegador moderno; sem instalação local |
-
-**ISO/IEC 12207 (Processos de Ciclo de Vida de Software)**: O ciclo de vida do projeto seguiu os processos de: levantamento de requisitos, projeto arquitetural, implementação, verificação (testes) e validação (demonstração ao PO).
-
-**LGPD (Lei 13.709/2018)**: A conformidade com a Lei Geral de Proteção de Dados foi tratada como requisito transversal, implementada por meio de:
-- Logs de acesso ao prontuário armazenados em MongoDB (rastreabilidade);
-- Controle de acesso por perfis (apenas médicos acessam prontuários);
-- Dados de saúde com indicação de criptografia (AES-256).
-
-### Práticas de Engenharia Aplicadas
-
-- **Definição de Pronto (Definition of Done)**: Todo item do backlog só foi considerado concluído quando: o código estava implementado e funcional, os testes passavam, a interface era acessível e a documentação estava atualizada.
-- **Critérios de Aceite**: Definidos para cada User Story antes do desenvolvimento, servindo como base para os testes de aceitação. Exemplo: US09 (fila) exigia "flag de prioridade" e "posição automática".
-- **Revisão de Código**: Todas as alterações passaram por revisão antes de serem integradas, garantindo consistência e qualidade do código.
-- **Integração Contínua**: Testes unitários e de integração executados a cada commit para detecção precoce de regressões.
-
-### Conclusão da Análise
-
-A combinação de Scrum (para gestão iterativa), Kanban (para visualização de fluxo), ISO/IEC 25010 (para atributos de qualidade) e LGPD (para conformidade legal) proporcionou uma abordagem completa de engenharia de software. A velocidade média de 23,3 story points por sprint demonstra consistência do time, e a taxa de 100% de aprovação nos 19 casos de teste evidencia a eficácia do plano de verificação e validação adotado.
+Em síntese, a combinação de Scrum para gestão iterativa, Kanban para visualização de fluxo, ISO/IEC 25010 para atributos de qualidade e LGPD para conformidade legal proporcionou uma abordagem completa e rigorosa de engenharia de software. A velocidade média de 23,3 story points por sprint demonstra a consistência do time ao longo do projeto, e a taxa de 100% de aprovação nos 19 casos de teste evidencia a eficácia do plano de verificação e validação adotado.
