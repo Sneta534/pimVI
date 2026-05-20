@@ -68,15 +68,54 @@ O modelo de dados do sistema SaúdePOP foi projetado para suportar as operaçõe
 - **PACIENTE (1) → (N) FILA**: um paciente pode entrar na fila várias vezes (em dias diferentes).
 - **CONSULTORIO (1) → (N) FILA**: a fila é organizada por consultório.
 
-## 2.2 Normalização
+## 2.2 Escolhas de Modelagem
+
+### Entidades e Justificativas
+
+O modelo relacional foi organizado em 8 entidades que refletem os processos operacionais da clínica popular:
+
+- **Paciente**: Entidade central do sistema, contendo dados cadastrais. O CPF foi definido como UNIQUE para evitar duplicidade e servir como chave de busca rápida, atendendo ao fluxo da recepcionista que localiza pacientes por CPF.
+- **Profissional**: Separada de Usuário para permitir que profissionais existam no sistema mesmo antes de terem login, e para que o CRM (registro de classe) seja gerenciado independentemente das credenciais de acesso.
+- **Consultório** (equivalente a "Unidade" no contexto da clínica): Representa as salas físicas de atendimento. A tabela permite rastrear em qual consultório cada agendamento ocorre e organizar a fila por local, facilitando o encaminhamento do paciente.
+- **Usuário**: Entidade de controle de acesso, vinculada opcionalmente a um Profissional (FK nullable). O campo `perfil` com CHECK constraint garante que apenas os papéis "recepcionista", "medico" e "admin" sejam aceitos.
+- **Agendamento**: Liga paciente, profissional e consultório em um horário específico. O campo `status` com CHECK constraint controla o ciclo de vida: agendado → confirmado → realizado (ou falta/cancelado).
+- **Atendimento**: Representa o prontuário eletrônico propriamente dito, com campos de anamnese e prescrição. A FK para Agendamento é nullable, pois atendimentos de emergência ou encaixe podem ocorrer sem agendamento prévio.
+- **Triagem**: Separada do Atendimento em entidade própria (1:1) para manter os dados vitais (PA, temperatura, peso, altura) estruturados e facilitar consultas de acompanhamento ao longo do tempo, sem misturar com o texto livre do atendimento.
+- **Fila**: Gerencia a fila de espera com suporte a prioridade numérica e status de chamada, permitindo o funcionamento do painel de sala de espera em tempo real.
+
+### Normalização
 
 O modelo foi normalizado até a **Terceira Forma Normal (3FN)**:
 
-- **1FN**: Todos os atributos são atômicos; não há grupos repetitivos. Exemplo: o endereço do paciente é um campo único de texto (sem subdivisões em tabelas separadas para CEP, rua etc.), decisão tomada para simplificar o cadastro rápido na recepção.
-- **2FN**: Todos os atributos não-chave dependem integralmente da chave primária. Exemplo: na tabela AGENDAMENTO, o `status` depende de `id_agendamento`, não apenas de `id_paciente`.
-- **3FN**: Não há dependências transitivas. Exemplo: `especialidade` do profissional está na tabela PROFISSIONAL, não se repete em ATENDIMENTO.
+- **1FN** (atributos atômicos): Todos os campos são atômicos e indivisíveis. Não há grupos repetitivos. O endereço do paciente foi mantido como campo único VARCHAR(300) em vez de ser decomposto em rua, número, CEP etc., por decisão de simplicidade no cadastro rápido da recepção. A prescrição médica também é mantida como TEXT para flexibilidade, complementada pela anotação NoSQL para textos extensos.
+- **2FN** (dependência funcional total): Todos os atributos não-chave dependem integralmente da chave primária composta ou simples. Na tabela AGENDAMENTO, por exemplo, `status` e `observacoes` dependem de `id_agendamento` como um todo, e não apenas de `id_paciente` ou `id_profissional` isoladamente.
+- **3FN** (sem dependências transitivas): Eliminação de dependências transitivas. A `especialidade` do profissional é armazenada apenas na tabela PROFISSIONAL e nunca replicada em AGENDAMENTO ou ATENDIMENTO — obtida via JOIN quando necessário. Da mesma forma, os dados do paciente (nome, CPF) são referenciados por FK e nunca duplicados em FILA ou ATENDIMENTO.
 
-**Ponto de desnormalização**: O campo `posicao` na tabela FILA é recalculado a cada movimentação para evitar JOINs em consultas frequentes do painel de fila, priorizando desempenho de leitura.
+### Pontos de Desnormalização
+
+Foram adotados dois pontos de desnormalização intencional, justificados por requisitos de desempenho:
+
+1. **Campo `posicao` na tabela FILA**: O número da posição na fila é armazenado diretamente e recalculado a cada inserção/remoção, em vez de ser derivado por `ROW_NUMBER()` a cada consulta. Justificativa: o painel de sala de espera consulta a fila a cada 5 segundos para todos os consultórios simultaneamente. Manter a posição pré-calculada evita a execução de window functions em queries de alta frequência, reduzindo a carga no banco de dados.
+
+2. **Campo `especialidade` na tabela CONSULTÓRIO**: Embora a especialidade já exista na tabela PROFISSIONAL, ela também aparece no CONSULTÓRIO para permitir a exibição do painel de fila sem JOIN adicional com a tabela de profissionais. Essa redundância controlada é aceitável porque a especialidade de um consultório raramente muda.
+
+### Índices Definidos
+
+Os índices foram projetados para otimizar as três consultas mais críticas do sistema:
+
+| Índice | Tabela | Coluna(s) | Justificativa |
+|---|---|---|---|
+| IX_Paciente_CPF | Paciente | cpf | Busca de paciente por CPF na recepção (operação mais frequente) |
+| IX_Paciente_Nome | Paciente | nome | Busca alternativa por nome do paciente |
+| IX_Agendamento_Data | Agendamento | data_hora | Listagem da agenda do dia (filtro por data) |
+| IX_Agendamento_Paciente | Agendamento | id_paciente | Histórico de agendamentos de um paciente |
+| IX_Agendamento_Status | Agendamento | status | Filtro de agendamentos por status (confirmados, faltas) |
+| IX_Atendimento_Paciente | Atendimento | id_paciente | Recuperação do histórico de atendimentos |
+| IX_Atendimento_Data | Atendimento | data_hora_inicio | Filtro de atendimentos por período |
+| IX_Fila_Consultorio_Status | Fila | (id_consultorio, status) | Índice composto para listagem de fila por consultório com filtro de status — consulta mais frequente do painel de sala de espera |
+| IX_Fila_Paciente | Fila | id_paciente | Verificação se paciente já está na fila |
+
+A escolha dos índices priorizou as operações de leitura que ocorrem em alta frequência (painel de fila, busca de pacientes, agenda do dia), aceitando um custo marginalmente maior nas operações de escrita (INSERT/UPDATE).
 
 ## 2.3 Dicionário de Dados
 
@@ -205,4 +244,34 @@ db.logs.aggregate([
 db.anotacoes.find({ tags: "acompanhamento" });
 ```
 
-A escolha por NoSQL para esses registros justifica-se pela natureza flexível dos dados (anotações livres sem esquema fixo), pelo alto volume de logs gerados e pela facilidade de consultas por atributos variáveis, sem necessidade de JOINs complexos.
+### Modelo de Documento — Evento de Fila
+
+```json
+{
+    "_id": "ObjectId('...')",
+    "tipo": "evento_fila",
+    "fila_id": 89,
+    "paciente_id": 42,
+    "consultorio_id": 1,
+    "evento": "entrada",
+    "posicao": 3,
+    "data_hora": "2025-03-15T08:25:00Z",
+    "detalhes": {
+        "prioridade": 0,
+        "qtd_fila_momento": 5,
+        "tempo_estimado_min": 18
+    }
+}
+```
+
+### Justificativa da Escolha NoSQL
+
+A escolha por MongoDB (NoSQL orientado a documentos) para esses três módulos justifica-se por:
+
+1. **Flexibilidade de esquema**: Anotações livres de consulta não possuem estrutura fixa — cada profissional pode registrar informações diferentes (tags, anexos, campos variáveis). Um esquema relacional rígido exigiria campos opcionais excessivos ou tabelas de metadados complexas.
+
+2. **Alto volume de logs**: O sistema de logs de acesso ao prontuário gera registros a cada visualização, edição ou impressão. O MongoDB suporta inserções de alta frequência com melhor desempenho que tabelas relacionais com muitas FKs e constraints.
+
+3. **Consultas sem JOINs**: Os eventos de fila e logs de acesso são consultados isoladamente (por paciente, por data, por profissional) sem necessidade de JOINs com outras entidades. O modelo de documento permite armazenar toda a informação relevante em um único registro.
+
+4. **Auditoria e conformidade (LGPD)**: Os logs de acesso ao prontuário atendem à necessidade de rastreabilidade exigida pela Lei Geral de Proteção de Dados, registrando quem acessou, quando e qual dado foi consultado.
