@@ -135,10 +135,11 @@ def api_fila():
             "status": "aguardando",
             "hora_entrada": datetime.now().isoformat(),
             "hora_chamada": None,
-            "prioridade": dados.get("prioridade", 0),
+            "prioridade": dados.get("prioridade", "normal"),
         }
+        PRIO_MAP = {"emergencia": 3, "prioritario": 2, "normal": 1}
         fila.append(item_fila)
-        fila.sort(key=lambda x: (-x["prioridade"], x["posicao"]))
+        fila.sort(key=lambda x: (-PRIO_MAP.get(x["prioridade"], 0), x["posicao"]))
         return jsonify(item_fila), 201
     return jsonify(fila)
 
