@@ -1,8 +1,37 @@
 # Documento de Requisitos — SaúdePOP
 
-## 1. Visão Geral
+## 1. Visão e Escopo
 
-O sistema SaúdePOP é uma aplicação web para clínicas populares que integra prontuário eletrônico simplificado, agendamento de consultas e gestão de filas em tempo quase real.
+### 1.1 Descrição do Problema
+
+A Clínica Saúde Popular é uma unidade de saúde de baixo custo que atende pacientes de comunidades de baixa renda. Atualmente, a clínica opera com prontuários em papel, agendamentos em cadernos físicos e filas organizadas manualmente. Esse cenário gera perdas de informações clínicas, conflitos de horário, filas desorganizadas que não respeitam prioridades legais (idosos, gestantes, PCDs), e ausência de dados para gestão.
+
+### 1.2 Objetivos de Negócio
+
+| # | Objetivo | Indicador de Sucesso |
+|---|---|---|
+| OBJ01 | Eliminar prontuários em papel | 100% dos atendimentos registrados eletronicamente |
+| OBJ02 | Reduzir tempo de espera percebido | Painel de fila com posição e tempo estimado |
+| OBJ03 | Eliminar conflitos de agendamento | Detecção automática de choques de horário |
+| OBJ04 | Garantir conformidade com a LGPD | Logs de auditoria em 100% dos acessos ao prontuário |
+| OBJ05 | Priorizar atendimento conforme legislação | Fila inteligente com prioridade automática |
+| OBJ06 | Fornecer indicadores gerenciais | Relatórios de faltas, tempo de espera e produtividade |
+
+### 1.3 Atores
+
+| Ator | Descrição |
+|---|---|
+| Paciente | Pessoa que busca atendimento; visualiza fila no painel |
+| Recepcionista | Cadastra pacientes, agenda consultas, gerencia fila |
+| Profissional de Saúde | Acessa prontuário, registra atendimento, chama pacientes |
+| Administrador | Gerencia profissionais, consultórios e relatórios |
+
+### 1.4 Restrições
+
+- Backend em Python (Flask) com banco SQL Server (relacional) e MongoDB (NoSQL)
+- Interface web responsiva (min. 768px) compatível com Chrome, Firefox e Edge
+- Conformidade com LGPD para dados de saúde
+- Suporte a 20 acessos simultâneos
 
 ## 2. Requisitos Funcionais
 
