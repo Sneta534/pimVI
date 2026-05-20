@@ -121,12 +121,8 @@ CREATE INDEX IX_Paciente_CPF ON Paciente(cpf);
 
 ### Índices Definidos
 
-| Índice | Tabela | Coluna(s) | Justificativa |
-|---|---|---|---|
-| IX_Paciente_CPF | Paciente | cpf | Busca frequente por CPF na recepção |
-| IX_Agendamento_Data | Agendamento | data_hora | Listagem de agenda do dia |
-| IX_Fila_Consultorio | Fila | id_consultorio, status | Consulta da fila por consultório |
-| IX_Atendimento_Paciente | Atendimento | id_paciente | Histórico de atendimentos |
+<img width="660" height="185" alt="Screenshot_99" src="https://github.com/user-attachments/assets/5d15e122-11d7-4e21-b88a-a6e981c8c22c" />
+
 
 ## 2.5 Scripts SQL Server (DML)
 
